@@ -675,8 +675,10 @@ ul {
     background: white;
     color: black;
     font-weight: 500;
-    width: 160px;
-    height: 64px;
+    /*width: 160px;
+    height: 64px;*/
+    width: 126px;
+    height: 42px;
     border-radius: 9px;
     padding: 10px 0px 0 15px;
     text-align: start;
