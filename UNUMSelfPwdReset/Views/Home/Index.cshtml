@@ -33,7 +33,72 @@
     </div>
 
 </div>
+<div class="row mb-2 m-l-r">
+    <div class="res">
+        @if (Model.LoginClients[0].ExpireInDays > 14)
+        {
+            <div class="alert alert-secondary col-md-12">
+                <div class="ts-h col-md-12 float-start">
+                    <div class="ts float-start">
+                        <svg class="svg-primary" xmlns="http://www.w3.org/2000/svg" height="2.5rem" viewBox="0 0 24 24" width="2.5rem" fill="#00428c">
+                            <path d="M0 0h24v24H0z" fill="none">
+
+                            </path>
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
+                        </svg>
+                    </div>
+
+                    <div class="m-sa">
+                        <strong>Your</strong>
+
+                        <b> LAN ID @Model.LoginClients[0].OnPremisesSamAccountName</b> <strong>will <b>expire</b> on </strong>
+
+                        <b>@DateTime.Now.AddDays(Convert.ToDouble(Model.LoginClients[0].ExpireInDays)).DayOfWeek, @DateTime.Now.AddDays(Convert.ToDouble(Model.LoginClients[0].ExpireInDays)).ToString("MMMM dd, yyyy")</b>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning col-md-12">
+                <div class="ts-h col-md-12 float-start">
+                    <div class="tsg float-start">
+                        <svg class="svg-warning" xmlns="http://www.w3.org/2000/svg" height="2.5rem" viewBox="0 0 24 24" width="2.5rem" fill="#eb6d00">
+                            <path d="M0 0h24v24H0z" fill="none">
+
+                            </path>
+                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z">
+
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="m-s">
+                        @if (Model.LoginClients[0].ExpireInDays <= 14 && Model.LoginClients[0].ExpireInDays > 0)
+                        {
+                            <strong>Your <b>LAN ID @Model.LoginClients[0].OnPremisesSamAccountName</b> is going to <b>expire</b> on </strong>
+
+                            <b>@DateTime.Now.AddDays(Convert.ToDouble(Model.LoginClients[0].ExpireInDays)).DayOfWeek, @DateTime.Now.AddDays(Convert.ToDouble(Model.LoginClients[0].ExpireInDays)).ToString("MMMM dd, yyyy"),</b>
+
+                            <strong> please change your password prior to expiration. </strong>
+                        }
+                        else if (Model.LoginClients[0].ExpireInDays <= 0)
+                        {
+                            <div class="m-t-2">
+                                <strong>
+                                    Your <b>LAN ID @Model.LoginClients[0].OnPremisesSamAccountName</b> has
+                                </strong>
+                                <b> expired.</b> <strong> Please click on Change my password now. </strong>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
 <div class="cont">
+
     <div class="row mb-2">
         <label class="f-26 col-md-12">My Accounts</label>
     </div>
@@ -41,14 +106,8 @@
     {
         int Sno = 0;
         <div class="row mb-1">
-           
+
             <div class="col-12">
-
-                @* <select id="ddchg" aria-expanded="true" class="dd">
-            <option value="1">Change Password</option>
-            <option value="2">Forgot my password</option>
-            </select>*@
-
                 <div class="dds">
                     <div>
                         <input type="radio" id="change" name="ddchg" checked>
@@ -83,9 +142,7 @@
                         Sno++;
                         <tr>
                             <td>@Sno</td>
-
-                            @*<td>@item.LoginType</td>*@
-                            <td>LAN ID</td>
+                            <td>LAN ID @item.OnPremisesSamAccountName</td>
                             <td>@item.Description</td>
                             <td>@item.LastSignInAt?.ToString("yyyy-MM-dd | hh:mm tt")</td>
                             @if (item.ExpireInDays.HasValue)
@@ -148,13 +205,13 @@
     }
 
 
-    <footer>
-        <div class="row text-start">
-            <div class="col-md-12 col-sm-12">
-                <a asp-action="dashboard" class="fs-14 btn-a"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
-            </div>
-        </div>
-    </footer>
+    @*  <footer>
+    <div class="row text-start">
+    <div class="col-md-12 col-sm-12">
+    <a asp-action="dashboard" class="fs-14 btn-a"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</a>
+    </div>
+    </div>
+    </footer>*@
 </div>
 <div class="modal fade slide-front disable-scroll" id="GenerateModel" tabindex="-1" role="dialog" aria-hidden="false">
     <div class="modal-dialog modal-dialog-centered">
@@ -205,22 +262,8 @@
     </script>
 
     <script type="text/javascript">
-        //document.getElementById("ddchg").addEventListener("change", function () {
 
-        //    var selectedValue = this.value;
-        //    if (selectedValue != "1") {
-        //        $("#Generate").removeClass("h-b");
-        //        $("#change").addClass("h-b");
-        //        //$("#txt").text("we recommend using the system-generated password, which is considered secure. However, if you prefer, you can create a new password of your choice to make sure it’s in line with the company’s security policies.");
-
-        //    } else {
-        //        $("#Generate").addClass("h-b");
-        //        $("#change").removeClass("h-b");
-        //        //  $("#txt").text("we recommend using the system-generated password, which is considered secure. However, if you prefer, you can create a new password of your choice to make sure it’s in line with the company’s security policies.");
-        //    }
-
-        //});
-         $(document).on('change', '#forgot', function (e) {
+        $(document).on('change', '#forgot', function (e) {
             $("#Generatebt").removeClass("h-b");
             $("#changebt").addClass("h-b");
         });

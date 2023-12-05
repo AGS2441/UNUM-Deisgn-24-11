@@ -328,7 +328,7 @@ b {
 .ts {
     vertical-align: middle;
     margin-right: 15px;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 .tsg {
     vertical-align: middle;
@@ -570,7 +570,7 @@ ul {
 }
 
 .app-content .side-app {
-    padding: 0px 20px 10px 20px;
+    padding: 0px 20px 50px 20px;
 }
 
 .i-img {
@@ -638,7 +638,11 @@ ul {
 }
 .m-s {
     position: relative;
-    top: 8px;
+    top: 5px;
+}
+.m-sa {
+    position: relative;
+    top: 5px;
 }
 .m-sg {
  
@@ -781,11 +785,47 @@ input[type="radio"] {
 .m-t-3 {
     margin-block-start: 0.5rem !important;
 }
+.n-img {
+    height: 330px;
+    /* width: 220px; */
+    box-shadow: 0 0 3px 3px #98c7ef;
+    margin-top: 1rem;
+    border-radius: 6px;
+}
+#back-to-top{
+    background:#00428c;
+    border:2px solid #00428c;
+}
+    #back-to-top i{
+        color:white;
+    }
+.footer{
+    padding:0.55rem 1.25rem;
+}
+.main-container {
+    padding-bottom: 1rem;
+}
+.m-l-r {
+    padding-right: 1.25rem;
+    padding-left: 0.75rem;
+}
 /*//==========================For responsive media Queries After Sash theme=================================//*/
 @media(min-width: 992px) {
     .app-header {
         padding-inline-start: 15px !important;
     }
+    .footer {
+        padding: 0.55rem 1.25rem;
+    }
+    .sidebar-mini footer.footer {
+        padding-block-start: .5rem;
+        padding-inline-end: .5rem;
+        padding-block-end: .5rem;
+        padding-inline-start: 270px;
+    }
+}
+.m-t-2 {
+    margin-block-start: 0.5rem ;
 }
 
 @media (max-width: 991px) {
@@ -839,7 +879,7 @@ input[type="radio"] {
     }
 
     .container {
-        margin-top: 10%;
+       /* margin-top: 10%;*/
     }
 
     .alert {
@@ -874,10 +914,10 @@ input[type="radio"] {
 @media (max-width: 1280px) {
     .alert-warning {
         font-size: 12px;
-        min-height: 80px;
+        min-height: 74px;
     }
     .alert-secondary {
-        min-height: 64px;
+        min-height: 60px;
     }
     .app-header {
         padding-inline-start: 15px;
@@ -895,7 +935,9 @@ input[type="radio"] {
         width: 52px;
         height: 52px;
     }
-
+    .container {
+       max-width:1280px;
+    }
     .res {
     }
 
@@ -905,8 +947,12 @@ input[type="radio"] {
     .f-24 {
         font-size: 18px;
     }
-    .footer{
-        font-size:11px;
+    .footer {
+        font-size: 11px;
+        min-width: 100%;
+        left: 0%;
+        background: white;
+        box-shadow: 0 0 2px 0px #98c7ef;
     }
     .h-svg {
         height: 1.5rem;
@@ -986,9 +1032,38 @@ input[type="radio"] {
     .alert-warning {
         padding-top: 4px !important;
     }
+    .footer {
+        font-size: 12px;
+        min-width: 100%;
+        left: 0%;
+        background: white;
+        box-shadow: 0 0 2px 0px #98c7ef;
+    }
+    .m-sg {
+        top: 1.25rem;
+    }
+    .m-s {
+        top: 1.25rem;
+    }
+    .m-sa {
+        top: .5rem;
+    }
+    .m-t-2 {
+        margin-block-start: 0rem !important;
+    }
 }
 @media only screen and (min-width:1912px) {
     .m-sg {
         top: 17px;
+    }
+    .footer {
+        font-size: 11px;
+        min-width: 100%;
+        left: 0%;
+        background: white;
+        box-shadow: 0 0 2px 0px #98c7ef;
+    }
+    .m-t-2 {
+        margin-block-start: 0rem !important;
     }
 }

@@ -41,8 +41,10 @@ namespace UNUMSelfPwdReset.Controllers
 
         [AuthorizeForScopes(ScopeKeySection = "MicrosoftGraph:Scopes")]
 
-        #region For Dashboard screen
-        public async Task<IActionResult> Dashboard()
+
+
+        #region For My Accounts Page
+        public async Task<IActionResult> Index()
         {
             var me = await _graphServiceClient.Me.Request().GetAsync();
             var userInfo = CopyHandler.UserProperty(me);
@@ -50,11 +52,12 @@ namespace UNUMSelfPwdReset.Controllers
             {
                 var user = await _graphServiceClient.Users[me.UserPrincipalName]
                    .Request()
-                   .Select("lastPasswordChangeDateTime")
+                   .Select(x => new   { x.LastPasswordChangeDateTime,x.OnPremisesSamAccountName})
                    .GetAsync();
 
                 userInfo.LastPasswordChangeDateTime = user?.LastPasswordChangeDateTime?.DateTime;
-                userInfo.LoginClients = await _loginsManager.GetUserLogins(userInfo?.Id, userInfo?.UserPrincipalName, userInfo?.LastPasswordChangeDateTime);
+                userInfo.OnPremisesSamAccountName = user?.OnPremisesSamAccountName is null ?"":"";
+                userInfo.LoginClients = await _loginsManager.GetUserLogins(userInfo?.Id, userInfo?.UserPrincipalName, userInfo?.LastPasswordChangeDateTime, userInfo?.OnPremisesSamAccountName);
                 string strProfilePicBase64 = "";
                 try
                 {
@@ -79,86 +82,8 @@ namespace UNUMSelfPwdReset.Controllers
                 {
                     HttpContext.Session.SetString("LastName", userInfo.Surname?.ToString());
                 }
-                //int count = 0;
-                //var message = "";
-                //HttpContext.Session.SetString("ExpireInDays", "false");
-                //foreach (var item in userInfo.LoginClients)
-                //{
-                //    if (item.ExpireInDays <= 14)
-                //    {
-                //        count = count + 1;
-                //    }
-                //}
-                //if (count>0)
-                //{
-                //    if (userInfo.LoginClients[0].ExpireInDays>0)
-                //    {
-                //        message = "Your account password is going to expire in "+ userInfo.LoginClients[0].ExpireInDays + " days, please change your password without any interruption.";
-                //    }
-                //    else
-                //    {
-                //        HttpContext.Session.SetString("ExpireInDays", "true");
-                //        message = "Your account password is expired, please change the password to access your account.";
-                //    }
-                //    TempData.SetObjectAsJson("newPopupViewModel", StaticMethods.CreatePopupModel("Home", message));
-                //}
-
-               // var dates = userInfo.LoginClients[0].ExpireInDays;
+                int? days = userInfo.LoginClients[0].ExpireInDays;
                 return View(userInfo);
-            }
-            catch (Exception ex)
-            {
-
-                TempData.SetObjectAsJson("PopupViewModel", StaticMethods.CreatePopupModel("Home", ex.Message));
-            }
-            return View(userInfo);
-        }
-
-        #endregion
-
-        #region For My Accounts Page
-        public async Task<IActionResult> Index()
-        {
-
-            var me = await _graphServiceClient.Me.Request().GetAsync();
-            var userInfo = CopyHandler.UserProperty(me);
-            try
-            {
-                var user = await _graphServiceClient.Users[me.UserPrincipalName]
-                       .Request()
-                       .Select("lastPasswordChangeDateTime")
-                       .GetAsync();
-
-                userInfo.LastPasswordChangeDateTime = user?.LastPasswordChangeDateTime?.DateTime;
-                userInfo.LoginClients = await _loginsManager.GetUserLogins(userInfo?.Id, userInfo?.UserPrincipalName, userInfo?.LastPasswordChangeDateTime);
-                string strProfilePicBase64 = "";
-                try
-                {
-                    var profilePic = await _graphServiceClient.Me.Photo.Content.Request().GetAsync();
-                    using StreamReader? reader = profilePic is null ? null : new StreamReader(new CryptoStream(profilePic, new ToBase64Transform(), CryptoStreamMode.Read));
-                    strProfilePicBase64 = reader is null ? null : await reader.ReadToEndAsync();
-                }
-                catch (Exception ex)
-                {
-
-                    strProfilePicBase64 = "";
-                }
-                //HttpContext.Session.SetString("FirstName", userInfo.GivenName.ToString());
-                //HttpContext.Session.SetString("LastName", userInfo.Surname.ToString());
-                //HttpContext.Session.SetString("Profilepic", strProfilePicBase64.ToString());
-                if (userInfo.GivenName != null)
-                {
-                    HttpContext.Session.SetString("FirstName", userInfo.GivenName?.ToString());
-                }
-                if (strProfilePicBase64 != null)
-                {
-                    HttpContext.Session.SetString("Profilepic", strProfilePicBase64.ToString());
-                }
-                if (userInfo.Surname != null)
-                {
-                    HttpContext.Session.SetString("LastName", userInfo.Surname?.ToString());
-                }
-
             }
             catch (Exception ex)
             {
@@ -289,8 +214,8 @@ namespace UNUMSelfPwdReset.Controllers
                 model.TempPassword = tempPassword;
 
                 Error = " Reset Password";
-               var response = await _passwordResetService.ResetUserPasswordAsync(token, temp);
-                //var response = "true";
+                // var response = await _passwordResetService.ResetUserPasswordAsync(token, temp);
+                var response = "true";
                 if (response == "true")
                 {
 

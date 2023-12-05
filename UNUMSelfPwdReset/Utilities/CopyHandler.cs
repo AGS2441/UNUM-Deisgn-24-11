@@ -18,6 +18,7 @@ namespace UNUMSelfPwdReset.Utilities
                 LastSignInAt = DateTime.Now,
                 LastPasswordChangeDateTime = graphUser.LastPasswordChangeDateTime?.DateTime,
                 Department = graphUser.Department,
+                OnPremisesSamAccountName = graphUser.OnPremisesSamAccountName,
             };
 
             return user;

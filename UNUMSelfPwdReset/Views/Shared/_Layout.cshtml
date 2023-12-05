@@ -51,8 +51,7 @@
         <div class="text-center text-white Load-d" >
             <p class="m-n Load-P">
                 <i  class="fa-solid fa-spinner f-26 text-x rotate mr-2" style="color:#3d3d92"></i>
-                @*<img src="~/assets/images/loader.svg" style="height:52px;" alt="Loader">*@
-                @*<img src="~/assets/images/loader.svg" class="loader-img" alt="Loader">*@
+               
                 <span class="h6 font-thin semi-bold">Loading...</span>
             </p>
         </div>
@@ -66,7 +65,7 @@
                 <div class="d-flex">
                     <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
                     <!-- sidebar-toggle-->
-                    <a class=" " asp-action="Dashboard" asp-controller="Home">
+                    <a class=" " asp-action="Index" asp-controller="Home">
                         <img src="~/assets/img/brand/logo-1.png" class="header-brand-img desktop-logo" alt="logo">
                         <img src="~/assets/img/brand/logo-1.png" class="header-brand-img light-logo1"
                          alt="logo">
@@ -86,7 +85,7 @@
         <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
         <div class="app-sidebar">
             <div class="side-header">
-                <a class=" logo-horizontal" asp-action="Dashboard" asp-controller="Home">
+                <a class=" logo-horizontal" asp-action="Index" asp-controller="Home">
                         <img src="~/assets/img/brand/logo-1.png" alt="logo" class="header-brand-img desktop-logo">
                         
                 </a>
@@ -192,7 +191,7 @@
                     </div>
                     <div class="col-md-11 pull-right text-left">
                         <label class="fs-16 col-md-12 semi-bold">Create a strong password to protect your account.</label>
-                        <label class="fs-15 col-md-12">We recommend using a combination of letters, numbers, and special characters.</label>
+                        <label class="fs-15 col-md-12">You are required to a combination of letters, numbers, and special characters.</label>
                     </div>
 
                 </div>
@@ -213,12 +212,12 @@
                             <label class="fs-16 semi-bold">Your password must:</label>
                         </div>
                         <ul class="ul-list">
-                            <li>Be a minimum of 12 characters</li>
+                            <li>Be a minimum of <b>12 Characters</b></li>
                             <li>Not be the same as your previous six passwords</li>
-                            <li>Not contain your first or last name</li>
-                            <li>Contain at least one Uppercase character (A through Z)</li>
-                            <li>Contain at least one Number (0-9)</li>
-                            <li>Contain at least one special character<text>(-!&#64;#$%()^&*)</text> </li>
+                            @*<li>Not contain your first or last name</li>*@
+                            <li>Contain at least one <b>Uppercase Character (A through Z)</b></li>
+                            <li>Contain at least one <b>Number (0-9)</b></li>
+                            <li>Contain at least one <b>Special Character<text> (-!&#64;#$%()^&*)</text></b> </li>
                         </ul>
                     </div>
                     <div class="alert alert-warning mt-3">

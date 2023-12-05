@@ -14,11 +14,10 @@ namespace UNUMSelfPwdReset.Models
         public string Mail { get; set; }
         public string Department { get; set; }
         public string UserPrincipalName { get; set; }
+        public string OnPremisesSamAccountName { get; set; }
         public DateTime LastSignInAt { get; set; }
         public DateTime? LastPasswordChangeDateTime { get; set; }
         public List<UserLoginClient> LoginClients { get; set; }
-
-
     }
 
 
@@ -33,7 +32,7 @@ namespace UNUMSelfPwdReset.Models
         public string Username { get; set; }
         public string Description { get; set; }
 
-
+        public string OnPremisesSamAccountName { get; set; }
         public bool HasAccess { get; set; }
 
 
